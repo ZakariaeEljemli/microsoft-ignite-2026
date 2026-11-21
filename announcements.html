@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Microsoft Ignite 2026 | Announcements</title>
+
+<style>
+:root {
+    --navy: #051a3f;
+    --blue: #0078d4;
+    --cyan: #20c7e9;
+    --background: #eef6ff;
+    --card: #ffffff;
+    --text: #102147;
+    --muted: #64748b;
+    --border: #d7e6f6;
+    --green: #16714e;
+    --purple: #6345c6;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--background);
+    color: var(--text);
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+.header {
+    padding: 26px 5vw 42px;
+    background:
+        radial-gradient(
+            circle at 80% 10%,
+            rgba(23, 199, 232, 0.23),
+            transparent 25%
+        ),
+        linear-gradient(130deg, #031532, #064684);
+    color: #ffffff;
+}
+
+.header-inner {
+    width: min(1250px, 100%);
+    margin: auto;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.microsoft {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.microsoft img {
+    width: 145px;
+    max-height: 48px;
+    object-fit: contain;
+}
+
+.logo-text {
+    display: none;
+}
+
+.back {
+    padding: 10px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 9px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.back:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.header h1 {
+    margin: 48px 0 8px;
+    font-size: clamp(34px, 5vw, 55px);
+}
+
+.header p {
+    max-width: 720px;
+    margin: 0;
+    color: #dbeeff;
+    line-height: 1.55;
+}
+
+.container {
+    width: min(1250px, calc(100% - 40px));
+    margin: auto;
+}
+
+.active-context {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin: 25px 0 -5px;
+    padding: 13px 16px;
+    border: 1px solid #acd7f8;
+    border-radius: 12px;
+    background: #e5f4ff;
+    color: #075985;
+    font-size: 14px;
+}
+
+.active-context.visible {
+    display: flex;
+}
+
+.active-context strong {
+    color: #064f82;
+}
+
+.filters {
+    position: sticky;
+    top: 8px;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: 2fr repeat(3, 1fr);
+    gap: 11px;
+    margin-top: -24px;
+    padding: 17px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 12px 30px rgba(7, 49, 96, 0.14);
+}
+
+.filters input,
+.filters select {
+    width: 100%;
+    min-width: 0;
+    padding: 13px;
+    border: 1px solid #cadaee;
+    border-radius: 10px;
+    background: #ffffff;
+    color: var(--text);
+}
+
+.filters input:focus,
+.filters select:focus,
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid rgba(0, 120, 212, 0.28);
+    outline-offset: 2px;
+}
+
+.filter-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin: 25px 2px 15px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.clear {
+    border: 0;
+    background: transparent;
+    color: var(--blue);
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding-bottom: 65px;
+}
+
+.card {
+    display: flex;
+    min-height: 320px;
+    flex-direction: column;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    background: var(--card);
+    box-shadow: 0 7px 22px rgba(8, 57, 105, 0.06);
+}
+
+.card-brand {
+    display: flex;
+    min-height: 42px;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.card-brand img {
+    width: 37px;
+    height: 37px;
+    object-fit: contain;
+}
+
+.card-brand strong {
+    color: #53627d;
+    font-size: 12px;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.tag {
+    padding: 5px 8px;
+    border-radius: 999px;
+    background: #e7f3ff;
+    color: #0863b8;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.status-tag {
+    background: #eeebff;
+    color: var(--purple);
+}
+
+.category-tag {
+    background: #e8f7ef;
+    color: var(--green);
+}
+
+.card h2 {
+    margin: 0 0 10px;
+    font-size: 18px;
+    line-height: 1.35;
+}
+
+.card p {
+    margin: 0 0 18px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.card button {
+    margin-top: auto;
+    padding: 11px;
+    border: 0;
+    border-radius: 10px;
+    background: #071d49;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.card button:hover {
+    background: var(--blue);
+}
+
+.empty {
+    display: none;
+    margin-bottom: 60px;
+    padding: 60px 20px;
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    background: #ffffff;
+    color: var(--muted);
+    text-align: center;
+}
+
+.database-error {
+    display: none;
+    margin: 30px 0 60px;
+    padding: 22px;
+    border: 1px solid #f1b8b8;
+    border-radius: 12px;
+    background: #fff0f0;
+    color: #991b1b;
+    line-height: 1.6;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(1, 9, 27, 0.75);
+}
+
+.modal.open {
+    display: flex;
+}
+
+.dialog {
+    position: relative;
+    width: min(780px, 100%);
+    max-height: 88vh;
+    overflow: auto;
+    padding: 28px;
+    border-radius: 20px;
+    background: #ffffff;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: grid;
+    width: 37px;
+    height: 37px;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: #edf4fc;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 22px;
+}
+
+.modal-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.modal-brand img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.dialog h2 {
+    padding-right: 45px;
+    line-height: 1.3;
+}
+
+.dialog-summary {
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+.detail {
+    padding: 16px;
+    border-left: 4px solid var(--blue);
+    border-radius: 0 10px 10px 0;
+    background: #f3f8fd;
+    color: #52617d;
+    line-height: 1.7;
+}
+
+.profile-footer {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 28px 6vw;
+    background: linear-gradient(130deg, #031531, #064687);
+    color: #ffffff;
+}
+
+.avatar {
+    display: grid;
+    width: 75px;
+    height: 75px;
+    flex: 0 0 75px;
+    place-items: center;
+    border: 4px solid #ffffff;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #16c5e6, #7359e8);
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.profile-footer h2 {
+    margin: 0;
+}
+
+.profile-footer p {
+    margin: 5px 0;
+    color: #d1e9ff;
+}
+
+.profile-footer a {
+    color: #69ddff;
+    text-decoration: none;
+}
+
+.profile-footer a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .filters {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .grid,
+    .filters {
+        grid-template-columns: 1fr;
+    }
+
+    .nav {
+        align-items: flex-start;
+    }
+
+    .filter-info,
+    .active-context {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .profile-footer {
+        align-items: flex-start;
+    }
+
+    .avatar {
+        width: 60px;
+        height: 60px;
+        flex-basis: 60px;
+        font-size: 19px;
+    }
+
+    .profile-footer h2 {
+        font-size: 22px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <nav class="nav">
+
+            <div class="microsoft">
+                <img
+                    src="assets/logos/microsoft.png"
+                    alt="Microsoft"
+                    onerror="
+                        this.style.display='none';
+                        this.nextElementSibling.style.display='inline';
+                    "
+                >
+
+                <span class="logo-text">
+                    Microsoft
+                </span>
+            </div>
+
+            <a class="back" href="index.html">
+                ← Solution Map
+            </a>
+
+        </nav>
+
+        <h1>Ignite 2026 Announcements</h1>
+
+        <p>
+            Explore Microsoft Ignite announcements and filter the
+            portfolio by solution, availability status or business
+            category.
+        </p>
+
+    </div>
+
+</header>
+
+<main class="container">
+
+    <section class="filters" aria-label="Announcement filters">
+
+        <input
+            id="search"
+            type="search"
+            placeholder="Search announcements..."
+            aria-label="Search announcements"
+        >
+
+        <select id="status" aria-label="Filter by status">
+            <option value="">All statuses</option>
+        </select>
+
+        <select id="solution" aria-label="Filter by solution">
+            <option value="">All solutions</option>
+        </select>
+
+        <select id="category" aria-label="Filter by category">
+            <option value="">All categories</option>
+        </select>
+
+    </section>
+
+    <div
+        class="active-context"
+        id="activeContext"
+        aria-live="polite">
+
+        <span>
+            Solution selected from the map:
+            <strong id="activeSolutionName"></strong>
+        </span>
+
+        <a href="announcements.html">
+            View all solutions
+        </a>
+
+    </div>
+
+    <div class="filter-info">
+
+        <span id="count" aria-live="polite"></span>
+
+        <button
+            class="clear"
+            id="clear"
+            type="button">
+            Clear filters
+        </button>
+
+    </div>
+
+    <div
+        class="database-error"
+        id="databaseError"
+        role="alert">
+
+        The announcements database could not be loaded. Verify that
+        <strong>assets/data/announcements.js</strong> exists and that
+        the shared script is loaded before the page script.
+
+    </div>
+
+    <section
+        class="grid"
+        id="grid"
+        aria-label="Ignite announcements">
+    </section>
+
+    <div class="empty" id="empty">
+        No announcement matches the selected filters. Try clearing
+        the filters or using a broader search.
+    </div>
+
+</main>
+
+<footer class="profile-footer">
+
+    <div class="avatar" aria-hidden="true">
+        ZE
+    </div>
+
+    <div>
+        <h2>Zakariae ELJEMLI</h2>
+
+        <p>
+            AI &amp; Digital Workplace Expert |
+            Microsoft Certified Trainer (MCT)
+        </p>
+
+        <a
+            href="https://www.linkedin.com/in/eljemli/"
+            target="_blank"
+            rel="noopener noreferrer">
+            LinkedIn ↗
+        </a>
+    </div>
+
+</footer>
+
+<div
+    class="modal"
+    id="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle">
+
+    <div class="dialog">
+
+        <button
+            class="close"
+            type="button"
+            id="close"
+            aria-label="Close announcement">
+            ×
+        </button>
+
+        <div id="modalContent"></div>
+
+    </div>
+
+</div>
+
+<!-- Shared database must load before the page script. -->
+<script src="assets/data/announcements.js"></script>
+
+<script>
+(function initialiseAnnouncementsPage() {
+    const elements = {
+        grid: document.getElementById("grid"),
+        search: document.getElementById("search"),
+        status: document.getElementById("status"),
+        solution: document.getElementById("solution"),
+        category: document.getElementById("category"),
+        count: document.getElementById("count"),
+        empty: document.getElementById("empty"),
+        clear: document.getElementById("clear"),
+        modal: document.getElementById("modal"),
+        modalContent: document.getElementById("modalContent"),
+        close: document.getElementById("close"),
+        databaseError: document.getElementById("databaseError"),
+        activeContext: document.getElementById("activeContext"),
+        activeSolutionName:
+            document.getElementById("activeSolutionName")
+    };
+
+    if (
+        typeof announcements === "undefined" ||
+        typeof solutions === "undefined" ||
+        typeof getSolutionById !== "function"
+    ) {
+        elements.databaseError.style.display = "block";
+        elements.grid.style.display = "none";
+        elements.count.textContent = "";
+        return;
+    }
+
+    /*
+     * Populate status and category filters from the shared database.
+     */
+    addSimpleOptions(
+        elements.status,
+        getUniqueValues("status")
+    );
+
+    addSimpleOptions(
+        elements.category,
+        getUniqueValues("category")
+    );
+
+    /*
+     * The value of every Solution option is the permanent solutionId.
+     * The user sees the human-readable solution name.
+     */
+    solutions
+        .filter(solutionItem =>
+            announcements.some(
+                announcement =>
+                    announcement.solutionId === solutionItem.id
+            )
+        )
+        .sort((first, second) =>
+            first.name.localeCompare(second.name)
+        )
+        .forEach(solutionItem => {
+            const option =
+                document.createElement("option");
+
+            option.value =
+                solutionItem.id;
+
+            option.textContent =
+                `${solutionItem.name} ` +
+                `(${getAnnouncementCount(solutionItem.id)})`;
+
+            elements.solution.appendChild(option);
+        });
+
+    /*
+     * Read the stable solution ID from the URL:
+     * announcements.html?solution=azure
+     */
+    const searchParameters =
+        new URLSearchParams(window.location.search);
+
+    const requestedSolutionId =
+        normaliseValue(searchParameters.get("solution"));
+
+    if (requestedSolutionId) {
+        const requestedSolution =
+            getSolutionById(requestedSolutionId);
+
+        const optionExists =
+            [...elements.solution.options].some(
+                option =>
+                    option.value === requestedSolutionId
+            );
+
+        if (requestedSolution && optionExists) {
+            elements.solution.value =
+                requestedSolutionId;
+
+            elements.activeSolutionName.textContent =
+                requestedSolution.name;
+
+            elements.activeContext.classList.add("visible");
+        } else {
+            /*
+             * Invalid parameters must not silently show all records.
+             * Remove the invalid parameter and show the normal page.
+             */
+            console.warn(
+                `Unknown solution filter: ${requestedSolutionId}`
+            );
+
+            removeSolutionFromURL();
+        }
+    }
+
+    function getUniqueValues(property) {
+        return [
+            ...new Set(
+                announcements
+                    .map(item => item[property])
+                    .filter(Boolean)
+            )
+        ].sort((first, second) =>
+            first.localeCompare(second)
+        );
+    }
+
+    function addSimpleOptions(selectElement, values) {
+        values.forEach(value => {
+            const option =
+                document.createElement("option");
+
+            option.value = value;
+            option.textContent = value;
+
+            selectElement.appendChild(option);
+        });
+    }
+
+    function normaliseValue(value) {
+        return String(value ?? "")
+            .trim()
+            .toLowerCase();
+    }
+
+    function getFilteredAnnouncements() {
+        const term =
+            elements.search.value
+                .trim()
+                .toLowerCase();
+
+        const selectedStatus =
+            elements.status.value;
+
+        const selectedSolutionId =
+            elements.solution.value;
+
+        const selectedCategory =
+            elements.category.value;
+
+        return announcements.filter(announcement => {
+            const searchableContent = [
+                announcement.title,
+                announcement.solution,
+                announcement.status,
+                announcement.category,
+                announcement.summary,
+                announcement.detail
+            ]
+                .join(" ")
+                .toLowerCase();
+
+            const matchesSearch =
+                !term ||
+                searchableContent.includes(term);
+
+            const matchesStatus =
+                !selectedStatus ||
+                announcement.status === selectedStatus;
+
+            /*
+             * Core correction:
+             * compare stable IDs, never human-readable labels.
+             */
+            const matchesSolution =
+                !selectedSolutionId ||
+                announcement.solutionId ===
+                    selectedSolutionId;
+
+            const matchesCategory =
+                !selectedCategory ||
+                announcement.category ===
+                    selectedCategory;
+
+            return (
+                matchesSearch &&
+                matchesStatus &&
+                matchesSolution &&
+                matchesCategory
+            );
+        });
+    }
+
+    function render() {
+        const results =
+            getFilteredAnnouncements();
+
+        elements.grid.innerHTML = "";
+
+        elements.count.textContent =
+            `${results.length} of ` +
+            `${announcements.length} announcements`;
+
+        elements.empty.style.display =
+            results.length === 0
+                ? "block"
+                : "none";
+
+        results.forEach(announcement => {
+            const article =
+                document.createElement("article");
+
+            article.className = "card";
+
+            article.innerHTML = `
+                <div class="card-brand">
+                    <img
+                        src="assets/logos/${escapeHTML(
+                            announcement.logo
+                        )}"
+                        alt=""
+                        onerror="this.style.display='none'"
+                    >
+
+                    <strong>
+                        ${escapeHTML(announcement.solution)}
+                    </strong>
+                </div>
+
+                <div class="tags">
+                    <span class="tag">
+                        ${escapeHTML(announcement.solution)}
+                    </span>
+
+                    <span class="tag status-tag">
+                        ${escapeHTML(announcement.status)}
+                    </span>
+
+                    <span class="tag category-tag">
+                        ${escapeHTML(announcement.category)}
+                    </span>
+                </div>
+
+                <h2>
+                    ${escapeHTML(announcement.title)}
+                </h2>
+
+                <p>
+                    ${escapeHTML(announcement.summary)}
+                </p>
+
+                <button type="button">
+                    View full announcement →
+                </button>
+            `;
+
+            article
+                .querySelector("button")
+                .addEventListener(
+                    "click",
+                    () => openModal(announcement)
+                );
+
+            elements.grid.appendChild(article);
+        });
+    }
+
+    function openModal(announcement) {
+        elements.modalContent.innerHTML = `
+            <div class="modal-brand">
+                <img
+                    src="assets/logos/${escapeHTML(
+                        announcement.logo
+                    )}"
+                    alt="${escapeHTML(
+                        announcement.solution
+                    )}"
+                    onerror="this.style.display='none'"
+                >
+
+                <strong>
+                    ${escapeHTML(announcement.solution)}
+                </strong>
+            </div>
+
+            <div class="tags" style="margin-top:18px">
+                <span class="tag">
+                    ${escapeHTML(announcement.solution)}
+                </span>
+
+                <span class="tag status-tag">
+                    ${escapeHTML(announcement.status)}
+                </span>
+
+                <span class="tag category-tag">
+                    ${escapeHTML(announcement.category)}
+                </span>
+            </div>
+
+            <h2 id="modalTitle">
+                ${escapeHTML(announcement.title)}
+            </h2>
+
+            <p class="dialog-summary">
+                ${escapeHTML(announcement.summary)}
+            </p>
+
+            <div class="detail">
+                ${escapeHTML(announcement.detail)}
+            </div>
+        `;
+
+        elements.modal.classList.add("open");
+        document.body.style.overflow = "hidden";
+        elements.close.focus();
+    }
+
+    function closeModal() {
+        elements.modal.classList.remove("open");
+        document.body.style.overflow = "";
+    }
+
+    function updateSolutionURL() {
+        const url =
+            new URL(window.location.href);
+
+        if (elements.solution.value) {
+            url.searchParams.set(
+                "solution",
+                elements.solution.value
+            );
+
+            const selectedSolution =
+                getSolutionById(elements.solution.value);
+
+            if (selectedSolution) {
+                elements.activeSolutionName.textContent =
+                    selectedSolution.name;
+
+                elements.activeContext.classList.add("visible");
+            }
+        } else {
+            url.searchParams.delete("solution");
+            elements.activeContext.classList.remove("visible");
+        }
+
+        history.replaceState(
+            {},
+            "",
+            url.pathname +
+            url.search +
+            url.hash
+        );
+    }
+
+    function removeSolutionFromURL() {
+        const url =
+            new URL(window.location.href);
+
+        url.searchParams.delete("solution");
+
+        history.replaceState(
+            {},
+            "",
+            url.pathname +
+            url.search +
+            url.hash
+        );
+    }
+
+    function clearFilters() {
+        elements.search.value = "";
+        elements.status.value = "";
+        elements.solution.value = "";
+        elements.category.value = "";
+
+        elements.activeContext.classList.remove("visible");
+
+        const url =
+            new URL(window.location.href);
+
+        url.search = "";
+
+        history.replaceState(
+            {},
+            "",
+            url.pathname
+        );
+
+        render();
+    }
+
+    function escapeHTML(value) {
+        const element =
+            document.createElement("div");
+
+        element.textContent =
+            String(value ?? "");
+
+        return element.innerHTML;
+    }
+
+    elements.search.addEventListener(
+        "input",
+        render
+    );
+
+    elements.status.addEventListener(
+        "change",
+        render
+    );
+
+    elements.category.addEventListener(
+        "change",
+        render
+    );
+
+    elements.solution.addEventListener(
+        "change",
+        () => {
+            updateSolutionURL();
+            render();
+        }
+    );
+
+    elements.clear.addEventListener(
+        "click",
+        clearFilters
+    );
+
+    elements.close.addEventListener(
+        "click",
+        closeModal
+    );
+
+    elements.modal.addEventListener(
+        "click",
+        event => {
+            if (event.target === elements.modal) {
+                closeModal();
+            }
+        }
+    );
+
+    document.addEventListener(
+        "keydown",
+        event => {
+            if (
+                event.key === "Escape" &&
+                elements.modal.classList.contains("open")
+            ) {
+                closeModal();
+            }
+        }
+    );
+
+    render();
+})();
+</script>
+
+</body>
+</html>

@@ -135,10 +135,17 @@ select {
     color: #064f82;
 }
 
-.filters {
+.filters-shell {
     position: sticky;
     top: 8px;
-    z-index: 10;
+    z-index: 11;
+}
+
+.filters-toggle {
+    display: none;
+}
+
+.filters {
     display: grid;
     grid-template-columns: 2fr repeat(3, 1fr);
     gap: 11px;
@@ -423,9 +430,63 @@ a:focus-visible {
 }
 
 @media (max-width: 600px) {
-    .grid,
-    .filters {
+    .grid {
         grid-template-columns: 1fr;
+    }
+
+    .filters-shell {
+        margin-top: -14px;
+    }
+
+    .filters-toggle {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: #ffffff;
+        box-shadow: 0 12px 30px rgba(7, 49, 96, 0.14);
+        color: var(--text);
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .filters-toggle svg {
+        width: 20px;
+        height: 20px;
+        fill: none;
+        stroke: var(--blue);
+        stroke-linecap: round;
+        stroke-width: 2;
+    }
+
+    .filters-chevron {
+        width: 9px;
+        height: 9px;
+        margin-left: auto;
+        border-right: 2px solid var(--blue);
+        border-bottom: 2px solid var(--blue);
+        transform: rotate(45deg);
+        transition: transform 0.2s ease;
+    }
+
+    .filters-toggle[aria-expanded="true"] .filters-chevron {
+        transform: rotate(225deg);
+    }
+
+    .filters {
+        display: none;
+        position: static;
+        grid-template-columns: 1fr;
+        margin-top: 8px;
+    }
+
+    .filters.open {
+        display: grid;
+        max-height: calc(100vh - 80px);
+        overflow-y: auto;
     }
 
     .nav {
@@ -499,7 +560,29 @@ a:focus-visible {
 
 <main class="container">
 
-    <section class="filters" aria-label="Announcement filters">
+    <div class="filters-shell">
+
+    <button
+        class="filters-toggle"
+        id="filtersToggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="filtersPanel">
+
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 6h16M7 12h10m-7 6h4"/>
+        </svg>
+
+        <span>Filters</span>
+
+        <span class="filters-chevron" aria-hidden="true"></span>
+
+    </button>
+
+    <section
+        class="filters"
+        id="filtersPanel"
+        aria-label="Announcement filters">
 
         <input
             id="search"
@@ -521,6 +604,8 @@ a:focus-visible {
         </select>
 
     </section>
+
+    </div>
 
     <div
         class="active-context"
@@ -629,6 +714,8 @@ a:focus-visible {
 (function initialiseAnnouncementsPage() {
     const elements = {
         grid: document.getElementById("grid"),
+        filtersToggle: document.getElementById("filtersToggle"),
+        filtersPanel: document.getElementById("filtersPanel"),
         search: document.getElementById("search"),
         status: document.getElementById("status"),
         solution: document.getElementById("solution"),
@@ -1063,6 +1150,19 @@ a:focus-visible {
         clearFilters
     );
 
+    elements.filtersToggle.addEventListener(
+        "click",
+        () => {
+            const isOpen =
+                elements.filtersPanel.classList.toggle("open");
+
+            elements.filtersToggle.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
+        }
+    );
+
     elements.close.addEventListener(
         "click",
         closeModal
@@ -1085,6 +1185,15 @@ a:focus-visible {
                 elements.modal.classList.contains("open")
             ) {
                 closeModal();
+            } else if (
+                event.key === "Escape" &&
+                elements.filtersPanel.classList.contains("open")
+            ) {
+                elements.filtersPanel.classList.remove("open");
+                elements.filtersToggle.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
             }
         }
     );
